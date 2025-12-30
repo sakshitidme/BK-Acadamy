@@ -33,14 +33,14 @@ export default function Trek() {
       </section>
 
       {/* ================= ABOUT TREK ================= */}
-      <section className="pt-4 pb-8 px-6 max-w-6xl mx-auto -mt-12">
+      <section className="pt-12 pb-8 px-6 max-w-6xl mx-auto -mt-12">
         <motion.h2
           initial={{ opacity: 4, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold text-orange-500 mb-6"
         >
-          About the Trek
+          About the Trekking
         </motion.h2>
 
         <p className="text-gray-300 leading-relaxed text-lg">
