@@ -7,11 +7,10 @@ export default function Layout() {
     <>
       <Navbar />
 
-       
-      <main className="min-h-screen bg-gradient-to-br from-[#020617] via-[#020617] to-[#0F172A]">
-  <Outlet />
-</main>
-
+      {/* 🔥 OFFSET for FIXED + STICKY NAVBAR */}
+      <main className="min-h-screen pt-[120px] bg-gradient-to-br from-[#020617] via-[#020617] to-[#0F172A]">
+        <Outlet />
+      </main>
 
       <Footer />
     </>

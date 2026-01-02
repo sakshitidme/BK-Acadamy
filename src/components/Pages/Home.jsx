@@ -1,72 +1,152 @@
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { motion, useMotionValue, useTransform } from "framer-motion"
 import { Link } from "react-router-dom"
 
+/* ---------------- MARATHON POPUP ---------------- */
+function MarathonPopup({ onClose }) {
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+      <motion.div
+        initial={{ y: 50, opacity: 0, scale: 0.95 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-6"
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-black text-xl"
+        >
+          ✕
+        </button>
+
+        <h2 className="text-2xl font-extrabold text-center mb-3 text-slate-900">
+          🏃‍♂️ Marathon Registration
+        </h2>
+
+        <p className="text-center text-gray-700 mb-4">
+          Hurry! The marathon is near. Register now.
+        </p>
+
+        <motion.a
+          href="https://www.runindia.in/home/login"
+          target="_blank"
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className="block w-full text-center py-4 rounded-xl
+          bg-gradient-to-r from-orange-500 to-red-600
+          text-white font-extrabold text-lg"
+        >
+          Register for Marathon
+        </motion.a>
+      </motion.div>
+    </div>
+  )
+}
+
+/* ---------------- 3D HERO VIDEO ---------------- */
+function Hero3DVideo() {
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  const rotateX = useTransform(y, [-100, 100], [12, -12])
+  const rotateY = useTransform(x, [-100, 100], [-12, 12])
+
+  function handleMouse(e) {
+    const rect = e.currentTarget.getBoundingClientRect()
+    x.set(e.clientX - rect.left - rect.width / 2)
+    y.set(e.clientY - rect.top - rect.height / 2)
+  }
+
+  function reset() {
+    x.set(0)
+    y.set(0)
+  }
+
+  return (
+    <motion.div
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      style={{ rotateX, rotateY }}
+      className="relative h-[420px] rounded-3xl overflow-hidden
+      bg-white/10 backdrop-blur-xl
+      border border-white/20
+      shadow-2xl shadow-black/60"
+    >
+      <video
+        src="/assets/videos/homebannrvideo.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="relative z-10 h-full flex flex-col justify-end p-6">
+        <h3 className="text-3xl font-extrabold mb-2">
+          Train Like a Champion
+        </h3>
+        <p className="text-slate-200 mb-4">
+          Professional coaching • Proven results
+        </p>
+
+         
+      </div>
+    </motion.div>
+  )
+}
+
+/* ---------------- HOME PAGE ---------------- */
 export default function HomePage() {
+  const [showPopup, setShowPopup] = useState(false)
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("marathonPopupShown")) {
+      setShowPopup(true)
+      sessionStorage.setItem("marathonPopupShown", "true")
+    }
+  }, [])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#020617] via-[#020617] to-[#0F172A] text-white">
+      {showPopup && <MarathonPopup onClose={() => setShowPopup(false)} />}
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="grid md:grid-cols-2 gap-6 px-8 pt-8 pb-12 items-center">
+      {/* HERO SECTION */}
+      <section className="grid md:grid-cols-2 gap-12 px-8 pt-16 pb-20 items-center">
 
-        {/* Left Content */}
+        {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl font-extrabold mb-4">
+          <h1 className="text-5xl font-extrabold mb-6">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">
               BK
             </span>{" "}
-            <span className="text-white">Sports Academy</span>
+            Sports Academy
           </h1>
 
-          <p className="text-xl text-slate-300 mb-6 leading-relaxed">
+          <p className="text-xl text-slate-300 mb-8">
             Learn • Compete • Play
-            <br />
-            A next-generation platform for educational and competitive training.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex gap-4">
-            <Link
-              to="/gallery"
-              className="rounded-xl px-6 py-3 bg-red-600 hover:bg-red-700 transition text-white font-semibold shadow-lg"
-            >
+          <div className="flex gap-5">
+            <Link to="/gallery" className="px-7 py-3 bg-red-600 rounded-xl font-bold">
               Explore Games
             </Link>
-
-            <Link
-              to="/register"
-              className="rounded-xl px-6 py-3 border border-slate-400 text-white font-semibold hover:bg-white/10 transition"
-            >
+            <Link to="/register" className="px-7 py-3 border border-white/30 rounded-xl">
               Join Academy
             </Link>
           </div>
         </motion.div>
 
-        {/* Hero Image */}
-        <div className="h-[400px] rounded-2xl overflow-hidden shadow-2xl relative">
-          <img
-            src="/assets/images/homebanner.png"
-            alt="BK Career Academy Training"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/65 flex flex-col items-center justify-center text-center px-6">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Train Hard. Serve Proud.
-            </h2>
-
-            <p className="text-lg md:text-xl text-slate-300 max-w-2xl">
-              Physical & Athletics Training for Army, Police, PSI and Competitive Selections
-            </p>
-          </div>
-        </div>
+        {/* RIGHT 3D VIDEO */}
+        <Hero3DVideo />
       </section>
 
-      {/* ================= TRAINING CATEGORIES ================= */}
+      {/* TRAINING CATEGORIES (UNCHANGED) */}
       <section className="p-8">
         <h2 className="text-4xl font-bold mb-10 text-center">
           Training Categories
@@ -76,70 +156,42 @@ export default function HomePage() {
           {[
             {
               title: "🏆 Athlete Training Programs",
-              desc: "Structured physical training focusing on strength, endurance, stamina, and discipline.",
+              desc: "Structured physical training",
               video: "/assets/videos/home11.mp4",
             },
             {
-              title: "⚡ Performance & Skill Development",
-              desc: "Advanced drills, agility workouts, speed training, and technique improvement.",
+              title: "⚡ Performance Development",
+              desc: "Speed, agility & drills",
               video: "/assets/videos/home2.mp4",
             },
             {
-              title: "🎯 Competitive Pathway & Mentorship",
-              desc: "Tournament exposure, selection preparation, and professional mentoring.",
+              title: "🎯 Competitive Mentorship",
+              desc: "Selection preparation",
               video: "/assets/videos/home3.mp4",
             },
           ].map((item, i) => (
             <motion.div
-              key={item.title}
+              key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2 }}
-              viewport={{ once: true }}
-              className="relative rounded-2xl overflow-hidden h-[320px] group shadow-2xl"
+              className="relative rounded-2xl overflow-hidden h-[320px]"
             >
               <video
                 src={item.video}
                 autoPlay
                 loop
                 muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-
-              <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-all duration-500" />
-
+              <div className="absolute inset-0 bg-black/70" />
               <div className="relative z-10 h-full flex flex-col justify-end p-6">
-                <h3 className="text-2xl font-bold mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-slate-200 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
+                <h3 className="text-2xl font-bold">{item.title}</h3>
+                <p className="text-sm text-slate-200">{item.desc}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
-
-      {/* ================= CTA SECTION ================= */}
-      <section className="p-12 text-center bg-[#020617] border-t border-white/10">
-        <h2 className="text-4xl font-bold mb-4 text-white">
-          Ready to Play & Learn?
-        </h2>
-
-        <p className="text-lg mb-6 text-slate-400">
-          Join BK Career Academy and experience education like a mission.
-        </p>
-
-        <Link
-          to="/register"
-          className="inline-block rounded-xl px-8 py-4 bg-slate-800 hover:bg-slate-700 transition text-white text-lg font-semibold border border-white/10"
-        >
-          Get Started
-        </Link>
-      </section>
-
     </div>
   )
 }
