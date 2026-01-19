@@ -139,7 +139,7 @@ export default function NoticeBoard() {
       )}
 
       {/* ================= PAGE CONTENT ================= */}
-      <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-start relative z-10">
+      <div className="max-w-7xl mx-auto px-6 pt-4 py-20 grid md:grid-cols-2 gap-12 items-start relative z-10">
         {/* ================= NOTICE INFO ================= */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -148,7 +148,7 @@ export default function NoticeBoard() {
           className="bg-white rounded-3xl
           border border-slate-200 shadow-2xl p-8"
         >
-          <h1 className="text-4xl font-extrabold text-red-600 mb-6">
+          <h1 className="text-4xl font-extrabold text-red-600 mb-6 ">
             Notice Board
           </h1>
 

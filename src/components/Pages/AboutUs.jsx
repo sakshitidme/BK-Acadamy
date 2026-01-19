@@ -7,18 +7,18 @@ const trainingPrograms = [
   {
     title: "PSI Training",
     description: "Complete physical preparation with running drills, endurance building and exam-oriented practice.",
-    video: "/assets/videos/aboutPage/armyabout.mp4",
+    image: "/assets/images/aboutpage/PSITrainingabout.jpg",
   },
   {
     title: "Police Bharti",
     description: "Structured daily routines focusing on stamina, speed and physical tests.",
-    video: "/assets/videos/aboutPage/policeabout.mp4",
+    image: "/assets/images/aboutpage/PoliceBhartiabout.jpg",
   },
   {
     title: "Army Training",
     isList: true,
     list: ["800 Meter Run", "1600 Meter Run", "100 Meter Shot Out"],
-    video: "/assets/videos/aboutPage/army1about.mp4",
+    image: "/assets/images/aboutpage/ArmyTrainingabout.jpg",
   },
 ];
 
@@ -26,17 +26,18 @@ const athleticsPrograms = [
   {
     title: "Running",
     description: "Professional coaching to improve performance and technique.",
-    video: "/assets/videos/aboutPage/runningabout.mp4",
+    image: "/assets/images/aboutpage/runningabout.jpeg",
   },
   {
     title: "Jumping",
     description: "High jump, long jump, and explosive power training.",
-    video: "/assets/videos/aboutPage/about2.mp4",
+    image: "/assets/images/aboutpage/jumpingabout.jpeg",
   },
   {
     title: "Throwing",
     description: "Shot put, discuss throw, and strength conditioning.",
-    video: "/assets/videos/aboutPage/about3.mp4",
+    image: "/assets/images/aboutpage/throw.jpg",
+    fit: "object-contain" // Changed to contain to fit fully without stretch
   },
 ];
 
@@ -76,9 +77,9 @@ const AboutUs = () => {
       
       {/* ================= HERO SECTION ================= */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <video
-          src="/assets/videos/aboutVideo.mp4"
-          autoPlay loop muted playsInline
+        <img
+          src="/assets/images/aboutpage/aboutfirst.jpg"
+          alt="Our Legacy"
           className="absolute inset-0 w-full h-full object-cover brightness-[0.4]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-transparent to-black/30" />
@@ -136,10 +137,10 @@ const AboutUs = () => {
             className="relative"
           >
             <div className="absolute -inset-4 bg-brand-red/10 rounded-2xl rotate-3 -z-10" />
-            <video
+            <img
               className="rounded-xl shadow-2xl w-full object-cover h-[400px] border-4 border-white"
-              src="/assets/videos/aboutvideo222.mp4"
-              autoPlay loop muted playsInline
+              src="/assets/images/aboutpage/aboutsecind.webp"
+              alt="Transformation"
             />
           </motion.div>
         </div>
@@ -168,9 +169,9 @@ const AboutUs = () => {
                   viewport={{ once: true }}
                   className="group relative h-96 rounded-xl overflow-hidden bg-slate-900 border border-white/10"
                 >
-                  <video
-                    src={program.video}
-                    autoPlay loop muted playsInline
+                  <img
+                    src={program.image}
+                    alt={program.title}
                     className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
@@ -208,7 +209,7 @@ const AboutUs = () => {
                className="bg-white rounded-xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] overflow-hidden border border-slate-100"
              >
                <div className="h-48 relative">
-                 <video src={item.video} autoPlay loop muted className="w-full h-full object-cover" />
+                 <img src={item.image} alt={item.title} className={`w-full h-full ${item.fit || "object-cover"}`} />
                  <div className="absolute inset-0 bg-brand-red/20 mix-blend-multiply" />
                </div>
                <div className="p-6">

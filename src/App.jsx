@@ -27,6 +27,7 @@ import  AdminDashboard  from "./components/Pages/AdminDashboard";
 // Components
 import WhatsAppButton from "./components/WhatsAppButton";
 import PopupForm from "./components/PopupForm";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [showPopup, setShowPopup] = useState(false);
@@ -48,6 +49,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
 
         {/* Redirect root */}
@@ -68,7 +70,7 @@ function App() {
           <Route path="/trek" element={<Trek />} />
           <Route path="/payment" element={<PaymentLink />} />
           <Route path="/staff" element={<Staff />} />
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/our-sports" element={<Gallery />} />
           <Route path="*" element={<NotFound />} />
            <Route path="/admin" element={<AdminDashboard />} />
         </Route>

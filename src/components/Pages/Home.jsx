@@ -1,99 +1,94 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { X, Trophy, Timer, Medal, Shield, Target, User, Star, Clock, MapPin, Activity, Zap, Quote } from "lucide-react";
+import MarathonPopup from "../common/MarathonPopup";
 
+/* ===================== HERO SECTION (FULL SCREEN IMMERSIVE) ===================== */
 
-
-/* ===================== MARATHON POPUP (SCROLL TRIGGERED VIDEO) ===================== */
-function MarathonPopup({ onClose }) {
+// Helper Component for Compact Grid Card
+function ProgramCard({ program, index }) {
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0, scale: 0.9 }}
-      animate={{ y: 0, opacity: 1, scale: 1 }}
-      exit={{ y: 100, opacity: 0, scale: 0.9 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="fixed bottom-6 right-6 z-[9999] w-80 bg-brand-black/95 backdrop-blur-md rounded-xl shadow-[0px_0px_30px_rgba(220,38,38,0.3)] overflow-hidden border-2 border-brand-red"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      whileHover={{ y: -8 }}
+      className="relative h-[380px] rounded-2xl overflow-hidden cursor-pointer group shadow-xl hover:shadow-2xl hover:shadow-brand-red/20 border border-white/10 hover:border-brand-red/50 transition-colors"
     >
-      <div className="relative h-48 group">
-        <video 
-           src="/assets/videos/marahton.mp4" 
-           autoPlay 
-           loop 
-           muted 
-           className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-black to-transparent opacity-80" />
-        
-        <button 
-          onClick={onClose}
-          className="absolute top-3 right-3 bg-black/60 hover:bg-brand-red text-white rounded-full p-1.5 transition-all transform hover:rotate-90 hover:scale-110 border border-white/20"
-        >
-          <X size={16} />
-        </button>
-      </div>
+      <Link to="/programs" className="block w-full h-full">
+        {/* Background with Zoom Effect */}
+        <div className="absolute inset-0 bg-slate-900">
+           <img 
+              src={program.image} 
+              alt={program.title} 
+              className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+           />
+           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+        </div>
 
-      <div className="p-5 text-center relative -mt-12 bg-transparent">
-         <div className="w-16 h-16 mx-auto bg-brand-red rounded-full flex items-center justify-center border-4 border-brand-black shadow-lg mb-3 relative z-10">
-            <Timer className="w-8 h-8 text-white animate-pulse" />
-         </div>
-         
-         <h3 className="font-oswald font-bold text-xl text-white mb-1 uppercase tracking-wide leading-none">
-            Marathon <br/><span className="text-brand-red text-2xl">2026</span>
-         </h3>
-         <p className="text-xs text-slate-400 font-montserrat mb-4 font-medium uppercase tracking-widest">Limited Slots Available</p>
-         
-         <a href="https://www.runindia.in/home/login" target="_blank" rel="noreferrer" 
-            className="block w-full py-3 bg-white text-brand-black font-bold font-oswald uppercase text-sm rounded-lg
-            shadow-[4px_4px_0px_#dc2626] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover:bg-brand-red hover:text-white transition-all border-2 border-transparent hover:border-white">
-            Register Now
-         </a>
-      </div>
+        <div className="absolute inset-0 p-6 flex flex-col justify-between">
+           {/* Top Icons */}
+           <div className="flex justify-between items-start">
+              <div className={`w-12 h-12 rounded-xl backdrop-blur-md flex items-center justify-center text-white border border-white/20 ${program.color.replace('bg-', 'bg-opacity-20 bg-')}`}>
+                  {React.cloneElement(program.icon, { className: "w-6 h-6" })}
+              </div>
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10 p-2 rounded-full backdrop-blur-lg">
+                  <Activity className="w-4 h-4 text-brand-red" />
+              </div>
+           </div>
+
+           {/* Bottom Content */}
+           <div className="relative z-10">
+              <h4 className="text-brand-red font-bold tracking-widest uppercase text-[10px] mb-2 opacity-80">
+                 {program.subtitle}
+              </h4>
+              <h3 className="text-2xl font-oswald font-bold text-white uppercase leading-none mb-3">
+                 {program.title}
+              </h3>
+              
+              <div className="h-0 group-hover:h-auto overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-500">
+                 <div className="w-full l-[1px] bg-white/20 mb-3" />
+                 <ul className="space-y-1 mb-4">
+                   {program.features.slice(0, 3).map((f, i) => (
+                     <li key={i} className="flex items-center text-slate-300 text-xs font-montserrat">
+                       <span className="w-1 h-1 rounded-full bg-brand-red mr-2"></span>
+                       {f}
+                     </li>
+                   ))}
+                 </ul>
+              </div>
+              
+               <div className="flex items-center text-xs font-bold uppercase tracking-wider text-white/50 group-hover:text-brand-red transition-colors mt-2">
+                  Explore Program &rarr;
+               </div>
+           </div>
+        </div>
+      </Link>
     </motion.div>
   );
 }
 
-/* ===================== HERO SECTION (FULL SCREEN IMMERSIVE) ===================== */
 function HeroSection() {
-  const videos = [
-    "/assets/videos/homebannrvideo.mp4",
-    "/assets/videos/home1.mp4",
-    "/assets/videos/home3.mp4"
-  ];
-  const [currentVideo, setCurrentVideo] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideo((prev) => (prev + 1) % videos.length);
-    }, 6000); 
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-black">
-      {/* Background Video Loop */}
-      <AnimatePresence mode="wait">
-        <motion.video
-          key={currentVideo}
-          src={videos[currentVideo]}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5 }}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-        />
-      </AnimatePresence>
+      {/* Background Video (Single High Quality Source) */}
+      <video
+        src="/assets/videos/home1.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-60"
+      />
 
       {/* Gradient Overlay - Smooth & Premium */}
       <div className="absolute inset-0 bg-gradient-to-b from-brand-black/30 via-transparent to-brand-black/90" />
       <div className="absolute inset-0 bg-black/20" /> {/* General tint */}
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 -mt-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,9 +103,11 @@ function HeroSection() {
             Forging <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-slate-400">Champions</span>
           </h1>
 
-          <p className="text-lg md:text-2xl text-slate-200 font-montserrat font-light mb-10 max-w-2xl mx-auto leading-relaxed">
-            Unleash your inner athlete with first-class defense training. 
-            <span className="block mt-2 font-medium text-white">Discipline. Strength. Success.</span>
+          <p className="text-xl md:text-2xl text-slate-300 font-montserrat font-light mb-10 max-w-3xl mx-auto leading-relaxed">
+            Unleash your inner athlete with first-class defense training.
+            <span className="block mt-4 text-white font-oswald font-bold uppercase tracking-[0.2em] text-lg md:text-xl">
+              Discipline <span className="text-brand-red">.</span> Strength <span className="text-brand-red">.</span> Success
+            </span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center">
@@ -123,7 +120,7 @@ function HeroSection() {
             </Link>
             
             <Link
-              to="/gallery"
+              to="/our-sports"
               className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-oswald font-bold text-xl uppercase tracking-wider rounded-full
               hover:bg-white hover:text-brand-black transition-all duration-300"
             >
@@ -152,7 +149,7 @@ function StatsCounter() {
   const [counts, setCounts] = useState({ students: 0, trainers: 0, stories: 0, experience: 0 });
 
   useEffect(() => {
-    const targets = { students: 50, trainers: 3, stories: 25, experience: 2 };
+    const targets = { students: 50, trainers: 10, stories: 25, experience: 2 };
     const duration = 2000;
     const steps = 50;
     const interval = duration / steps;
@@ -182,13 +179,13 @@ function StatsCounter() {
   const stats = [
     { label: "SELECTIONS", value: counts.students, suffix: "+" },
     { label: "SUCCESS STORIES", value: counts.stories, suffix: "+" },
-    { label: "EXPERT COACHES", value: counts.trainers, suffix: "" },
+    { label: "EXPERT COACHES", value: counts.trainers, suffix: "+" },
     { label: "YEARS LEGACY", value: counts.experience, suffix: "+" },
   ];
 
   return (
-    <section className="bg-brand-black text-white py-16 -mt-16 relative z-20 transform -skew-y-2 border-t-4 border-brand-red">
-      <div className="max-w-7xl mx-auto px-6 transform skew-y-2">
+    <section className="bg-brand-black text-white py-16 -mt-16 relative z-20 transform border-t-4 border-b-4 border-brand-red">
+      <div className="max-w-7xl mx-auto px-6 transform">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
           {stats.map((stat, i) => (
             <motion.div
@@ -202,6 +199,9 @@ function StatsCounter() {
               <div className="text-5xl md:text-6xl font-oswald font-bold text-brand-red mb-2">
                 {stat.value}{stat.suffix}
               </div>
+              {/* Red Separator Line */}
+              <div className="w-12 h-1 bg-brand-red mx-auto mb-3 rounded-full"></div>
+              
               <div className="text-sm md:text-base font-montserrat font-bold tracking-widest text-slate-400 uppercase">
                 {stat.label}
               </div>
@@ -216,11 +216,22 @@ function StatsCounter() {
 /* ===================== HOME PAGE ===================== */
 export default function HomePage() {
   const [showPopup, setShowPopup] = useState(false);
+  const hallOfFameRef = useRef(null);
+  const isHallOfFameInView = useInView(hallOfFameRef, { amount: 0.3 }); // Trigger when 30% visible
 
-  // Helper to handle popup close and persistence
+  // Handle Scroll Trigger
+  useEffect(() => {
+    if (isHallOfFameInView) {
+      setShowPopup(true);
+    } else {
+      setShowPopup(false);
+    }
+  }, [isHallOfFameInView]);
+
+  // Helper to handle popup close (manually dismissed)
   const handleClosePopup = () => {
     setShowPopup(false);
-    sessionStorage.setItem("marathonPopupDismissed", "true");
+    // Removed sessionStorage persistence to allow appearing "every time"
   };
 
   return (
@@ -240,168 +251,65 @@ export default function HomePage() {
       {/* ===================== STATS COUNTER ===================== */}
       <StatsCounter />
 
-      {/* ===================== TRAINING CATEGORIES ===================== */}
-      <motion.section 
-        className="max-w-7xl mx-auto px-6 py-16"
-        onViewportEnter={() => {
-          if (!sessionStorage.getItem("marathonPopupDismissed")) {
-            setShowPopup(true);
-          }
-        }}
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <h2 className="text-4xl font-bold text-red-600 text-center mb-12">
-          Training Categories
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            {
-              title: "Athlete Training Programs",
-              desc: "Structured physical training",
-              video: "/assets/videos/home11.mp4",
-            },
-            {
-              title: "Performance Development",
-              desc: "Speed, agility & drills",
-              video: "/assets/videos/home2.mp4",
-            },
-            {
-              title: "Competitive Mentorship",
-              desc: "Selection preparation",
-              video: "/assets/videos/home3.mp4",
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="relative bg-white pt-12 pb-8 px-8 border-b-4 border-brand-red shadow-lg group overflow-hidden"
-            >
-              {/* Huge Number Background */}
-              <div className="absolute -top-6 -right-4 text-9xl font-oswald font-bold text-slate-100 z-0 group-hover:text-slate-200 transition-colors">
-                0{i + 1}
-              </div>
-              
-              <div className="relative z-10">
-                <h3 className="text-2xl font-oswald font-bold text-brand-black mb-3 uppercase group-hover:text-brand-red transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-slate-600 font-montserrat text-sm leading-relaxed mb-6">
-                  {item.desc}
-                </p>
-                
-                {/* Video Preview on Hover (optional or small) */}
-                <div className="h-1 bg-slate-100 w-full mb-4 overflow-hidden rounded-full">
-                  <motion.div 
-                    className="h-full bg-brand-red" 
-                    initial={{ width: "0%" }}
-                    whileInView={{ width: "100%" }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
-                  />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
 
-      </motion.section>
+      {/* ===================== FEATURED PROGRAMS (EXPANDING GALLERY) ===================== */}
+      <section className="bg-brand-black text-white py-24 px-6 overflow-hidden relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-900 via-brand-black to-black opacity-80" />
+        
+        <div className="max-w-[1400px] mx-auto relative z-10">
+          <div className="text-center mb-16">
+             <h2 className="text-5xl md:text-7xl font-oswald font-bold uppercase tracking-tight">
+                Elite <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-orange-600">Training</span>
+             </h2>
+             <p className="text-slate-400 font-montserrat tracking-widest uppercase text-sm mt-4">
+                Choose your battlefield • Defy your limits
+             </p>
+          </div>
 
-      {/* ===================== FEATURED PROGRAMS ===================== */}
-      <section className="bg-brand-black text-white py-20 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-oswald font-bold text-white text-center mb-4 uppercase">
-            Featured <span className="text-brand-red">Programs</span>
-          </h2>
-          <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto font-montserrat">
-            Specialized training designed for Army, Police, and Competitive Athletics.
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 title: "ARMY & DEFENSE",
-                features: ["1600m Endurance Run", "Obstacle Training", "Mental Conditioning", "Selection Drills"],
-                icon: <Medal className="w-full h-full" />,
-                video: "/assets/videos/aboutPage/armyabout.mp4",
-                color: "border-green-600"
+                subtitle: "SERVE THE NATION",
+                features: ["Endurance Run", "Obstacle Course", "Mental Fortitude"],
+                icon: <Medal />,
+                image: "/assets/images/home/army.jpg",
+                color: "bg-green-700"
               },
               {
                 title: "POLICE BHARTI",
-                features: ["Sprinting Technique", "Strength & Agility", "Physical Efficiency Test", "Interview Prep"],
-                icon: <Shield className="w-full h-full" />,
-                video: "/assets/videos/aboutPage/policeabout.mp4",
-                color: "border-blue-600"
+                subtitle: "LAW & ORDER",
+                features: ["Sprinting Drills", "Strength Training", "Agility Tests"],
+                icon: <Shield />,
+                image: "/assets/images/home/policehome.jpg",
+                color: "bg-blue-700"
               },
               {
                 title: "COMPETITIVE SPORTS",
-                features: ["Track & Field Coaching", "Plyometrics", "District/State Meets", "Diet & Nutrition"],
-                icon: <Trophy className="w-full h-full" />,
-                video: "/assets/videos/aboutPage/runningabout.mp4",
-                color: "border-accent-yellow"
+                subtitle: "TRACK & FIELD",
+                features: ["Plyometrics", "Technique Correction", "Speed Work"],
+                icon: <Trophy />,
+                image: "/assets/images/home/runinnghome.jpg",
+                color: "bg-accent-yellow"
               },
               {
                 title: "PSI PREPARATION",
-                features: ["Advanced Physical Prep", "Tactical Training", "Leadership Skills", "Personal Mentorship"],
-                icon: <Target className="w-full h-full" />,
-                video: "/assets/videos/aboutPage/army1about.mp4",
-                color: "border-brand-red"
+                subtitle: "LEADERSHIP & TACTICS",
+                features: ["Advanced Physicals", "Interview Prep", "Tactical Skills"],
+                icon: <Target />,
+                image: "/assets/images/home/psihome.jpg",
+                color: "bg-brand-red"
               },
             ].map((program, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                className={`group relative bg-brand-black border-l-8 ${program.color} shadow-2xl overflow-hidden h-[450px] flex flex-col justify-end p-8`}
-              >
-                  {/* Background Video (Muted, Loop, Absolute) */}
-                  <video
-                    src={program.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-700"
-                  />
-                  
-                  {/* Gradient Overlay - Lighter for visibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-
-                  {/* Icon Watermark */}
-                 <div className="absolute top-4 right-4 p-4 opacity-20 w-24 h-24 text-white group-hover:scale-110 transition-transform duration-500">
-                   {program.icon}
-                 </div>
-
-                <div className="relative z-10">
-                  <h3 className="text-3xl font-oswald font-bold mb-4 italic text-white">{program.title}</h3>
-                  <ul className="space-y-2 mb-6 text-sm">
-                    {program.features.slice(0, 3).map((feature, idx) => (
-                      <li key={idx} className="flex items-center font-montserrat font-medium text-slate-300">
-                        <span className="w-1.5 h-1.5 bg-brand-red mr-3 rotate-45"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                </div>
-              </motion.div>
+              <ProgramCard key={i} program={program} index={i} />
             ))}
           </div>
         </div>
       </section>
 
       {/* ===================== SUCCESS STORIES ===================== */}
-      <section className="bg-white py-20 px-6">
+      <section ref={hallOfFameRef} className="bg-white pt-10 pb-0 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-oswald font-bold text-brand-black text-center mb-12 uppercase">
             Hall of <span className="text-brand-red">Fame</span>
@@ -410,25 +318,25 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {[
               {
-                name: "RAJESH KUMAR",
+                name: "Pranav Bhujbal",
                 achievement: "INDIAN ARMY",
                 quote: "BK Academy transformed my fitness level. The training methodology is world-class.",
-                image: "https://randomuser.me/api/portraits/men/32.jpg",
-                rating: 5
+                image: "/assets/images/testimonials/pranavphto.jpeg",
+                rating: 4.5
               },
               {
-                name: "PRIYA SHARMA",
+                name: "Nikita Kad",
                 achievement: "STATE CHAMPION",
                 quote: "The personalized coaching helped me win gold at the state level. Forever grateful!",
-                image: "https://randomuser.me/api/portraits/women/44.jpg",
+                image: "/assets/images/testimonials/nikitaphoto.jpeg",
                 rating: 5
               },
               {
-                name: "AMIT PATIL",
+                name: "Bhavesh Patil",
                 achievement: "POLICE FORCE",
                 quote: "Cleared all physical tests in first attempt. Best academy for defense prep!",
-                image: "https://randomuser.me/api/portraits/men/86.jpg",
-                rating: 5
+                image: "/assets/images/testimonials/bhavesh.jpeg",
+                rating: 4.8
               },
             ].map((story, i) => (
               <motion.div
@@ -437,20 +345,20 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-slate-50 p-8 border-b-4 border-brand-red shadow-lg text-center group hover:-translate-y-2 transition-transform duration-300"
+                className="bg-slate-900 p-8 border-b-4 border-brand-red shadow-2xl text-center group hover:-translate-y-2 transition-transform duration-300 rounded-xl"
               >
                 <div className="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-br from-brand-red to-accent-yellow mb-6 shadow-md">
                    <img 
                     src={story.image} 
                     alt={story.name} 
-                    className="w-full h-full rounded-full object-cover border-4 border-white"
+                    className="w-full h-full rounded-full object-cover border-4 border-slate-800"
                    />
                 </div>
                 
-                <h4 className="text-2xl font-oswald font-bold text-brand-black item">{story.name}</h4>
+                <h4 className="text-2xl font-oswald font-bold text-white item">{story.name}</h4>
                 <p className="text-brand-red font-bold text-sm tracking-widest mb-4">{story.achievement}</p>
                 
-                <p className="text-slate-600 italic font-medium mb-6 flex gap-2 justify-center text-sm">
+                <p className="text-slate-300 italic font-medium mb-6 flex gap-2 justify-center text-sm">
                   <Quote className="w-3 h-3 text-brand-red rotate-180" />
                   {story.quote}
                   <Quote className="w-3 h-3 text-brand-red" />
@@ -475,7 +383,7 @@ export default function HomePage() {
       </section>
 
       {/* ===================== UPCOMING EVENTS ===================== */}
-      <section className="bg-slate-100 py-20 border-t-4 border-brand-red/10 mx-4 md:mx-10 mt-10 shadow-inner relative">
+      <section className="bg-slate-100 py-10 border-t-4 border-brand-red/10 mx-4 md:mx-10 mt-0 shadow-inner relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12">
              <div className="border-l-4 border-brand-red pl-6">
@@ -489,34 +397,46 @@ export default function HomePage() {
              </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 date: "22",
                 month: "FEB",
-                title: "BK MARATHON 2026",
+                title: "3KM Warm UP RUN",
+                subtitle: "BK MARATHON 2026",
                 time: "5:00 AM - 10:00 AM",
                 loc: "MVP Marathon Chowk, Nashik",
-                tag: "OPEN FOR ALL",
-                bg: "bg-brand-black text-white"
+                tag: "ENTRY FEE: ₹200",
+                bg: "text-white", 
+                link: "https://www.runindia.in/home/login",
+                image: "/assets/images/home/runinnghome.jpg",
+                logo: "/assets/images/running img.png"
               },
                {
-                date: "DAILY",
-                month: "MON-SAT",
-                title: "MORNING DRILLS",
-                time: "05:30 AM",
-                loc: "BK ACADEMY",
-                tag: "CADETS ONLY",
-                bg: "bg-white text-brand-black border-2 border-brand-black"
+                date: "22",
+                month: "FEB",
+                title: "5KM POWER RUN",
+                subtitle: "BK MARATHON 2026",
+                time: "5:00 AM - 10:00 AM",
+                loc: "MVP Marathon Chowk, Nashik",
+                tag: "ENTRY FEE: ₹350",
+                bg: "text-white",
+                link: "https://www.runindia.in/home/login",
+                image: "/assets/images/home/runinnghome.jpg",
+                logo: "/assets/images/running img.png"
               },
                {
-                date: "WEEK",
-                month: "EVERY",
-                title: "NEW BATCH TRIAL",
-                time: "06:00 AM",
-                loc: "MAIN CAMPUS",
-                tag: "FREE ENTRY",
-                bg: "bg-brand-red text-white"
+                date: "22",
+                month: "FEB",
+                title: "10KM CHALLENGE",
+                subtitle: "BK MARATHON 2026",
+                time: "5:00 AM - 10:00 AM",
+                loc: "MVP Marathon Chowk, Nashik",
+                tag: "ENTRY FEE: ₹500",
+                bg: "text-white",
+                link: "https://www.runindia.in/home/login",
+                image: "/assets/images/home/runinnghome.jpg",
+                logo: "/assets/images/running img.png"
               }
             ].map((ev, i) => (
                <motion.div
@@ -525,36 +445,68 @@ export default function HomePage() {
                  whileInView={{ opacity: 1, scale: 1 }}
                  viewport={{ once: true }}
                  transition={{ delay: i * 0.15 }}
-                 className={`relative p-8 ${ev.bg} shadow-2xl group cursor-pointer hover:-translate-y-2 transition-transform duration-300`}
+                 onClick={() => ev.link && window.open(ev.link, '_blank')}
+                 className={`relative p-8 shadow-2xl group cursor-pointer hover:-translate-y-2 transition-transform duration-300 overflow-hidden ${ev.bg} min-h-[400px] flex flex-col justify-between`}
                >
-                 <div className="absolute top-4 right-4 text-xs font-bold border px-2 py-1 uppercase tracking-widest opacity-70">
-                   {ev.tag}
-                 </div>
-                 
-                 <div className="text-6xl font-oswald font-bold mb-0 opacity-20 absolute bottom-4 right-4 rotate-[-15deg] group-hover:scale-110 transition-transform">
-                    {ev.date}
+                 {/* Background Image & Overlay */}
+                 {ev.image && (
+                   <>
+                     <img 
+                       src={ev.image} 
+                       alt="Marathon" 
+                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                     />
+                     <div className="absolute inset-0 bg-brand-black/70 group-hover:bg-brand-black/60 transition-colors duration-300" />
+                   </>
+                 )}
+
+                 <div className="relative z-10">
+                   <div className="absolute top-0 right-0 text-xs font-bold border border-white/30 px-3 py-1.5 uppercase tracking-widest opacity-90 bg-brand-red text-white shadow-lg">
+                     {ev.tag}
+                   </div>
+                   
+                   {/* Run India Logo Watermark */}
+                   {/* Run India Logo Watermark Removed */}
+                   
+                   <div className="text-6xl font-oswald font-bold mb-0 opacity-10 absolute bottom-0 right-0 rotate-[-15deg] group-hover:scale-110 transition-transform text-white">
+                      {ev.date}
+                   </div>
+  
+                   <div className="flex items-start gap-4 mb-6 mt-4">
+                     <div className="text-center min-w-[60px]">
+                       <span className="block text-4xl font-oswald font-bold leading-none">{ev.date}</span>
+                       <span className="block text-xs font-bold uppercase tracking-wider opacity-80 text-brand-red">{ev.month}</span>
+                     </div>
+                     <div className="w-[2px] h-12 bg-brand-red opacity-80"></div>
+                     <div className="flex flex-col justify-center">
+                        {/* Subtitle Removed */}
+                     </div>
+                   </div>
+  
+                   <h3 className="text-3xl font-oswald font-bold uppercase leading-tight mb-6 text-white text-shadow-sm">
+                      {ev.title}
+                   </h3>
+                   
+                   <div className="font-montserrat text-sm space-y-3 opacity-90 font-medium text-slate-200">
+                     <div className="flex items-center gap-3">
+                       <Clock className="w-5 h-5 text-brand-red" /> 
+                       <span>{ev.time}</span>
+                     </div>
+                     <div className="flex items-center gap-3">
+                       <MapPin className="w-5 h-5 text-brand-red" /> 
+                       <span>{ev.loc}</span>
+                     </div>
+                   </div>
                  </div>
 
-                 <div className="flex items-start gap-4 mb-6">
-                   <div className="text-center min-w-[60px]">
-                     <span className="block text-4xl font-oswald font-bold leading-none">{ev.date}</span>
-                     <span className="block text-xs font-bold uppercase tracking-wider opacity-80">{ev.month}</span>
-                   </div>
-                   <div className="w-[2px] h-12 bg-current opacity-20"></div>
-                 </div>
-
-                 <h3 className="text-2xl font-oswald font-bold uppercase leading-tight mb-4">{ev.title}</h3>
-                 
-                 <div className="font-montserrat text-sm space-y-2 opacity-90 font-medium">
-                   <div className="flex items-center gap-2">
-                     <Clock className="w-4 h-4" /> {ev.time}
-                   </div>
-                   <div className="flex items-center gap-2">
-                     <MapPin className="w-4 h-4" /> {ev.loc}
-                   </div>
+                 {/* Click to Register CTA */}
+                 <div className="relative z-10 mt-6 pt-6 border-t border-white/10">
+                    <span className="inline-block text-brand-red font-bold uppercase tracking-wider text-sm group-hover:text-white transition-colors">
+                      Click to Register &rarr;
+                    </span>
                  </div>
                </motion.div>
-            ))}
+             ))}
           </div>
 
           <div className="mt-12 text-center md:hidden">
@@ -566,7 +518,7 @@ export default function HomePage() {
       </section>
 
       {/* ===================== CALL TO ACTION ===================== */}
-      <section className="py-24 bg-brand-red text-white text-center relative overflow-hidden">
+      <section className="pt-12 pb-24 bg-brand-red text-white text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
         
         <div className="relative z-10 max-w-5xl mx-auto px-6">

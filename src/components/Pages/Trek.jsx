@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { FaMountain, FaUsers, FaHistory, FaRunning } from "react-icons/fa";
 
 const trekImages = [
@@ -35,7 +36,7 @@ const highlights = [
 
 export default function Trek() {
   return (
-    <div className="bg-slate-50 text-slate-900 overflow-hidden">
+    <div className="bg-slate-50  pt-2 text-slate-900 overflow-hidden">
 
       {/* ================= HERO ================= */}
       <section
@@ -48,7 +49,7 @@ export default function Trek() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative z-10 text-center px-6 max-w-6xl"
+          className="relative z-10 text-center px-6 max-w-6xl -mt-20"
         >
           <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-md">
             Raigad <span className="text-red-500">Fort Trek</span>
@@ -165,20 +166,43 @@ export default function Trek() {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="py-24 text-center bg-gradient-to-r from-red-600 to-orange-600 text-white">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-extrabold"
-        >
-          Join Our Next Trek 🚩
-        </motion.h2>
+      <section className="relative py-24 text-center text-white overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center z-0"
+          style={{ backgroundImage: "url('/assets/images/trek/ramshej.jpg')" }}
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/60 z-10" />
 
-        <p className="mt-4 max-w-2xl mx-auto text-base md:text-lg font-medium">
-          Experience adventure, discipline, leadership, and history with
-          BK Career Academy.
-        </p>
+        <div className="relative z-20 px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight"
+          >
+            Conquer <span className="text-red-500">Ramshej Fort</span>
+          </motion.h2>
+
+          <p className="mt-4 max-w-2xl mx-auto text-base md:text-xl font-medium text-slate-200">
+            Join our upcoming expedition in Nashik. Experience adventure, history, and the thrill of the climb.
+          </p>
+
+          <motion.div
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.6, delay: 0.2 }}
+             className="mt-10"
+          >
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center gap-2 px-10 py-4 bg-red-600 text-white font-bold text-lg rounded-full shadow-2xl hover:bg-red-700 transition-all uppercase tracking-wide hover:scale-105"
+            >
+              Join The Trek 🚩
+            </Link>
+          </motion.div>
+        </div>
       </section>
     </div>
   );

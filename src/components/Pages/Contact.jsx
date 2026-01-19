@@ -98,7 +98,7 @@ export default function ContactUs() {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="text-center mb-16"
+        className="text-center mb-16 -mt-10"
       >
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900">
           Contact <span className="text-red-600">BK Sports Academy</span>
@@ -137,7 +137,7 @@ export default function ContactUs() {
             <div className="flex items-center gap-4">
               <MapPin className="text-red-500" />
               <span className="text-lg font-medium">
-                BK Sports Academy, Maharashtra, India
+                2nd Floor, Gajanan Plaza, Gharpure Ghat Road, Ashok Stambh, Nashik, Maharashtra, BK Educational & Welfare Society
               </span>
             </div>
           </div>

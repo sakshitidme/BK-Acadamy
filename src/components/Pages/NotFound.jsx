@@ -49,10 +49,10 @@ const NotFound = () => {
         </Link>
 
         <Link
-          to="/gallery"
+          to="/our-sports"
           className="px-6 py-3 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition"
         >
-          Gallery
+          Our Sports
         </Link>
 
         <Link
@@ -69,7 +69,7 @@ const NotFound = () => {
         <ul className="flex gap-6 text-orange-400 font-semibold flex-wrap justify-center">
           <li><Link to="/programs" className="hover:underline">Programs</Link></li>
           <li><Link to="/staff" className="hover:underline">Staff</Link></li>
-          <li><Link to="/gallery" className="hover:underline">Gallery</Link></li>
+          <li><Link to="/our-sports" className="hover:underline">Our Sports</Link></li>
         </ul>
       </div>
     </div>

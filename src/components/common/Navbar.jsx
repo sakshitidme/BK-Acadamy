@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 
 export default function Navbar() {
@@ -25,7 +25,7 @@ export default function Navbar() {
     { path: "/home", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/programs", label: "Programs" },
-    { path: "/gallery", label: "Gallery" },
+    { path: "/our-sports", label: "Our Sports" },
     { path: "/staff", label: "Staff" },
     { path: "/notice-board", label: "Notice Board" },
     { path: "/trek", label: "Trek" },
@@ -51,6 +51,15 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-6">
+            <a 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=bkgroupofeducation@gmail.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 opacity-80 hover:opacity-100 transition hover:text-brand-red"
+            >
+               <Mail size={14} className="text-brand-red" />
+               <span className="text-xs md:text-sm font-semibold tracking-wide">bkgroupofeducation@gmail.com</span>
+            </a>
             <Link
               to="/login"
               className="bg-brand-red text-white px-5 py-1 text-xs font-bold uppercase tracking-wider
@@ -66,13 +75,16 @@ export default function Navbar() {
       <header className="bg-white/95 backdrop-blur-md shadow-lg fixed top-[40px] w-full z-40 border-b-4 border-brand-red">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
           {/* Logo */}
-          <Link to="/home" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-brand-red text-white flex items-center justify-center font-oswald font-bold text-xl skew-x-[-10deg] border-2 border-brand-red transition-colors">
+          <Link to="/home" className="flex items-center gap-1 group">
+            <span className="font-oswald font-bold text-4xl text-brand-red skew-x-[-10deg] transition-transform group-hover:scale-110">
               BK
-            </div>
+            </span>
             <div className="flex flex-col">
               <span className="font-oswald font-bold text-2xl uppercase leading-none text-brand-black tracking-tighter">
                 Sports Academy
+              </span>
+              <span className="text-[10px] font-bold text-slate-500 tracking-[0.3em] uppercase ml-0.5 leading-none mt-1">
+                Since 2009
               </span>
             </div>
           </Link>

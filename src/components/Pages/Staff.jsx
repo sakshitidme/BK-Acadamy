@@ -16,7 +16,7 @@ const staff = [
 
 const Staff = () => {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-montserrat pt-24 pb-20">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-montserrat pt-8 pb-20">
       
       {/* ================= HEADER ================= */}
       <div className="text-center px-6 mb-16">
@@ -52,8 +52,8 @@ const Staff = () => {
             
             {/* Mobile Name Overlay */}
             <div className="absolute bottom-6 left-6 md:hidden text-white">
-              <h2 className="text-3xl font-oswald font-bold uppercase leading-none mb-1">Bhagwan Yelmame</h2>
-              <p className="text-brand-red font-bold text-sm uppercase tracking-wider">Founder & Head Coach</p>
+              <h2 className="text-2xl font-oswald font-bold uppercase leading-none mb-1">Bhagwan Yelmame</h2>
+              <p className="text-brand-red font-bold text-xs uppercase tracking-wider">Founder & Head Coach</p>
             </div>
           </div>
 
@@ -62,11 +62,11 @@ const Staff = () => {
             <Quote className="absolute top-8 right-8 text-brand-red/10 w-24 h-24 rotate-180" />
             
             <div className="hidden md:block mb-6">
-              <div className="inline-block px-3 py-1 bg-brand-red/10 text-brand-red font-bold text-xs uppercase tracking-widest rounded mb-3">
-                Founder 
+              <div className="inline-block px-3 py-1 bg-brand-red/10 text-brand-red font-bold text-[10px] uppercase tracking-widest rounded mb-3">
+                Founder Secretary
               </div>
-              <h2 className="text-4xl lg:text-5xl font-oswald font-bold uppercase text-brand-black mb-2">
-                Bhagwan Yelmame
+              <h2 className="text-2xl lg:text-3xl font-oswald font-bold uppercase text-brand-black mb-2">
+                Dr. Adv. Bhagwan Nivrutti Elmame
               </h2>
             </div>
 
@@ -94,6 +94,70 @@ const Staff = () => {
             <div className="w-full h-1 bg-slate-100 mb-6" />
             <p className="font-oswald text-slate-400 text-sm uppercase tracking-widest">
               Holder of 21 Degrees • Competitive Exam Mentor
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ================= DUPLICATE CARD ================= */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 md:grid md:grid-cols-2 lg:grid-cols-[400px_1fr]"
+        >
+          {/* Image Section */}
+          <div className="relative h-[400px] md:h-full">
+            <img 
+              src="/assets/images/staffphotos/staffHead.jpg" 
+              alt="Duplicate Profile" 
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/5" />
+            
+            {/* Mobile Name Overlay */}
+            <div className="absolute bottom-6 left-6 md:hidden text-white">
+              <h2 className="text-2xl font-oswald font-bold uppercase leading-none mb-1">New Profile</h2>
+              <p className="text-brand-red font-bold text-xs uppercase tracking-wider">Role Title</p>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="p-8 md:p-12 flex flex-col justify-center relative">
+            <Quote className="absolute top-8 right-8 text-brand-red/10 w-24 h-24 rotate-180" />
+            
+            <div className="hidden md:block mb-6">
+              <div className="inline-block px-3 py-1 bg-brand-red/10 text-brand-red font-bold text-[10px] uppercase tracking-widest rounded mb-3">
+                Role Title
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-oswald font-bold uppercase text-brand-black mb-2">
+                New Profile Name
+              </h2>
+            </div>
+
+            <p className="text-slate-600 text-lg leading-relaxed mb-8 relative z-10">
+              "Description text goes here. Updates to photo and description will be made later."
+            </p>
+
+            <div className="grid grid-cols-2 gap-6 mb-8">
+              <div className="flex items-start gap-3">
+                <Medal className="text-brand-red w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-brand-black uppercase text-sm">Experience</h4>
+                  <p className="text-slate-500 text-sm">Qualification | Yrs Exp</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Star className="text-brand-red w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-brand-black uppercase text-sm">Role</h4>
+                  <p className="text-slate-500 text-sm">Specialty</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full h-1 bg-slate-100 mb-6" />
+            <p className="font-oswald text-slate-400 text-sm uppercase tracking-widest">
+              Additional Info • Credentials
             </p>
           </div>
         </motion.div>

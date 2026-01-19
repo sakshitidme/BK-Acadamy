@@ -89,18 +89,18 @@ const Footer = () => {
           {/* COLUMN 1: BRANDING */}
           <div>
             <Link to="/home" className="inline-block mb-6 group">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-brand-red text-white flex items-center justify-center font-oswald font-bold text-2xl skew-x-[-10deg] shadow-lg group-hover:scale-110 transition-transform">
-                  BK
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-oswald font-bold text-2xl uppercase text-white leading-none tracking-tighter">
-                    Sports Academy
-                  </span>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-red leading-none mt-1">
-                    Est. 2015
-                  </span>
-                </div>
+              <div className="flex items-center gap-2">
+                 <span className="font-oswald font-bold text-4xl text-brand-red skew-x-[-10deg] transition-transform group-hover:scale-110">
+                   BK
+                 </span>
+                 <div className="flex flex-col">
+                   <span className="font-oswald font-bold text-2xl uppercase text-white leading-none tracking-tighter">
+                     Sports Academy
+                   </span>
+                   <span className="text-[10px] font-bold text-slate-400 tracking-[0.3em] uppercase ml-0.5 leading-none mt-1">
+                     Since 2009
+                   </span>
+                 </div>
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-slate-400">
@@ -126,7 +126,7 @@ const Footer = () => {
                 { name: "Training Programs", path: "/programs" },
                 { name: "Success Stories", path: "/testimonials" },
                 { name: "Meet The Staff", path: "/staff" },
-                { name: "Photo Gallery", path: "/gallery" },
+                { name: "Our Sports", path: "/our-sports" },
                 { name: "Trekking Events", path: "/trek" },
               ].map((link, i) => (
                 <li key={i}>
@@ -142,22 +142,22 @@ const Footer = () => {
           {/* COLUMN 3: GET IN TOUCH */}
           <div>
             <h3 className="text-xl font-oswald font-bold text-white uppercase tracking-wider mb-6 border-l-4 border-brand-red pl-3">
-              Headquarters
+              Contact Us
             </h3>
             <ul className="space-y-5 text-sm">
               <li className="flex items-start gap-4">
                 <MapPin className="text-brand-red shrink-0" size={20} />
                 <span className="opacity-80">
-                  Opp. Circle Cinema, Ashok Stambh,<br /> Nashik, Maharashtra 422002
+                   2nd Floor, Gajanan Plaza, Gharpure Ghat Road, Ashok Stambh,<br /> Nashik, Maharashtra, BK Educational & Welfare Society
                 </span>
               </li>
               <li className="flex items-center gap-4">
                 <Phone className="text-brand-red shrink-0" size={20} />
-                <span className="font-bold text-white tracking-wide">+91 98765 43210</span>
+                <span className="font-bold text-white tracking-wide">+91 80801 95558</span>
               </li>
               <li className="flex items-center gap-4">
                 <Mail className="text-brand-red shrink-0" size={20} />
-                <a href="mailto:info@bksports.com" className="hover:text-white transition">info@bksports.com</a>
+                <a href="bkgroupofeducation@gmail.com" className="hover:text-white transition">bkgroupofeducation@gmail.com</a>
               </li>
             </ul>
 
