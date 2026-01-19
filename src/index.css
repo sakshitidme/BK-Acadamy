@@ -1,6 +1,25 @@
- @import "tailwindcss";
+@import "tailwindcss";
 
- @keyframes shimmer {
+@theme {
+  --color-brand-red: #dc2626;
+  --color-brand-red-dark: #b91c1c;
+  --color-brand-black: #0f172a;
+  --color-accent-yellow: #facc15;
+
+  --font-oswald: 'Oswald', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-brand-black);
+    background-color: #f3f4f6; /* Gray-100 */
+    overflow-x: hidden;
+  }
+}
+
+@keyframes shimmer {
   0% {
     background-position: -500px 0;
   }
@@ -28,4 +47,10 @@
 
 .animate-float {
   animation: float 2s ease-in-out infinite;
+}
+
+@layer utilities {
+  .clip-path-slant {
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+  }
 }

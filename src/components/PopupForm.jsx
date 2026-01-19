@@ -1,7 +1,7 @@
 import { useState } from "react";
+import API_URL from "../config";
 
 export default function PopupForm({ onClose }) {
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,61 +11,49 @@ export default function PopupForm({ onClose }) {
 
   const [status, setStatus] = useState("");
 
-  // handle input change
   function handleChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setFormData({ ...formData, [name]: value });
   }
 
-  // handle form submit
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:7777/api/enquiry", {
+      const res = await fetch(`${API_URL}/api/enquiry`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message
-          // message backend me abhi nahi hai, isliye nahi bhej rahe
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setStatus(data.message || "Something went wrong");
+        setStatus(data.message || "Something went wrong ❌");
         return;
       }
 
       setStatus("Enquiry submitted successfully ✅");
 
-      // clear form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
-      });
+      // mark as shown (SESSION STORAGE – SAME AS HOME)
+      sessionStorage.setItem("enquiryPopupShown", "true");
 
-    } catch (error) {
+      setTimeout(onClose, 1500);
+
+    } catch {
       setStatus("Server not responding ❌");
     }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
       <div className="bg-white w-[90%] max-w-md rounded-lg p-6 relative">
-
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 text-xl"
@@ -73,66 +61,33 @@ export default function PopupForm({ onClose }) {
           ✕
         </button>
 
-        <h2 className="text-2xl font-bold mb-4 text-center">
+        <h2 className="text-2xl font-bold mb-4 text-center text-black">
           Enquiry Form
         </h2>
 
-        {/* 🔥 FORM CONNECTED */}
         <form className="space-y-4" onSubmit={handleSubmit}>
+          <input name="name" required placeholder="Name"
+            value={formData.name} onChange={handleChange}
+            className="w-full border px-4 py-2 rounded" />
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full border px-4 py-2 rounded"
-            required
-          />
+          <input name="email" type="email" required placeholder="Email"
+            value={formData.email} onChange={handleChange}
+            className="w-full border px-4 py-2 rounded" />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border px-4 py-2 rounded"
-            required
-          />
+          <input name="phone" required placeholder="Phone (10 digits)"
+            value={formData.phone} onChange={handleChange}
+            className="w-full border px-4 py-2 rounded" />
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full border px-4 py-2 rounded"
-            required
-          />
+          <input name="message" placeholder="Message"
+            value={formData.message} onChange={handleChange}
+            className="w-full border px-4 py-2 rounded" />
 
-          <input
-            type="text"
-            name="message"
-            placeholder="Your Message"
-            value={formData.message}
-            onChange={handleChange}
-            className="w-full border px-4 py-2 rounded"
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-sky-500 text-white py-2 rounded hover:bg-sky-600"
-          >
-            Submit Form
+          <button className="w-full bg-sky-500 text-white py-2 rounded">
+            Submit
           </button>
 
-          {/* STATUS MESSAGE */}
-          {status && (
-            <p className="text-center text-sm mt-2">{status}</p>
-          )}
-
+          {status && <p className="text-center text-sm">{status}</p>}
         </form>
-
       </div>
     </div>
   );

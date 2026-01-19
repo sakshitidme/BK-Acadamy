@@ -1,118 +1,165 @@
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Float } from "@react-three/drei";
+import React from 'react';
 import { motion } from "framer-motion";
+import { Quote, Medal, Star, Clock } from "lucide-react";
 
 /* ================= STAFF DATA ================= */
 const staff = [
   {
     name: "Mangesh Raut",
-    role: "SAI NIS Coach | World Athletics Level 1 | BPED | Indian Athletics Technical Official",
+    role: "Assistant Coach & Technical Official",
+    qualifications: "SAI NIS Coach | World Athletics Level 1 | BPED",
     exp: "6+ Years Experience",
     img: "/assets/images/staffphotos/staff.jpg",
+    specialty: "Athletics & Field Events"
   },
 ];
 
-/* ================= 3D BACKGROUND OBJECT ================= */
-function TrainerCard3D() {
+const Staff = () => {
   return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
-      <mesh>
-        <boxGeometry args={[2.8, 3.6, 0.2]} />
-        <meshStandardMaterial color="#020617" />
-      </mesh>
-    </Float>
-  );
-}
-
-/* ================= STAFF PAGE ================= */
-export default function Staff() {
-  return (
-    <div className="min-h-screen pt-28 bg-gradient-to-b from-black via-slate-900 to-black text-white">
-      {/* ===== HEADER ===== */}
-      <section className="text-center py-16 px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-montserrat pt-24 pb-20">
+      
+      {/* ================= HEADER ================= */}
+      <div className="text-center px-6 mb-16">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-extrabold mb-4"
+          className="text-5xl md:text-6xl font-oswald font-bold uppercase mb-4"
         >
-          Meet Our <span className="text-orange-500">Elite Staff</span>
+          Meet The <span className="text-brand-red">Mentors</span>
         </motion.h1>
-        <p className="text-gray-400 max-w-3xl mx-auto">
-          Ex-army professionals, certified coaches, and elite mentors shaping
-          future champions at BK Career Academy.
+        <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
+          The driving force behind every champion. Our certified experts bring decades of experience to the field.
         </p>
-      </section>
+      </div>
 
-      {/* ===== FOUNDER 3D FEATURE CARD ===== */}
-      <section className="relative h-[380px] max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl mb-24">
-        {/* 3D Canvas */}
-        <Canvas camera={{ position: [0, 0, 6] }}>
-          <ambientLight intensity={0.7} />
-          <directionalLight position={[5, 5, 5]} />
-          <TrainerCard3D />
-          <OrbitControls enableZoom={false} />
-        </Canvas>
+      <div className="max-w-6xl mx-auto px-6 space-y-20">
 
-        {/* ===== FOUNDER CARD (COMPACT & PREMIUM) ===== */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl px-6 py-6 w-[280px] text-center"
-          >
-            {/* Image */}
-            <div className="relative w-28 h-28 mx-auto mb-4">
-              <img
-                src="/assets/images/staffphotos/staffHead.jpg"
-                alt="Bhagwan Yelmame"
-                className="w-full h-full rounded-full object-cover border-4 border-orange-500"
-              />
-              <span className="absolute inset-0 rounded-full ring-4 ring-orange-400/30 animate-pulse"></span>
+        {/* ================= SENIOR SIR (FEATURED) ================= */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 md:grid md:grid-cols-2 lg:grid-cols-[400px_1fr]"
+        >
+          {/* Image Section */}
+          <div className="relative h-[400px] md:h-full">
+            <img 
+              src="/assets/images/staffphotos/staffHead.jpg" 
+              alt="Bhagwan Yelmame" 
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/5" />
+            
+            {/* Mobile Name Overlay */}
+            <div className="absolute bottom-6 left-6 md:hidden text-white">
+              <h2 className="text-3xl font-oswald font-bold uppercase leading-none mb-1">Bhagwan Yelmame</h2>
+              <p className="text-brand-red font-bold text-sm uppercase tracking-wider">Founder & Head Coach</p>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="p-8 md:p-12 flex flex-col justify-center relative">
+            <Quote className="absolute top-8 right-8 text-brand-red/10 w-24 h-24 rotate-180" />
+            
+            <div className="hidden md:block mb-6">
+              <div className="inline-block px-3 py-1 bg-brand-red/10 text-brand-red font-bold text-xs uppercase tracking-widest rounded mb-3">
+                Founder 
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-oswald font-bold uppercase text-brand-black mb-2">
+                Bhagwan Yelmame
+              </h2>
             </div>
 
-            {/* Content */}
-            <h3 className="text-xl font-extrabold text-slate-900">
-              Bhagwan Yelmame
-            </h3>
-            <p className="text-orange-500 font-semibold text-sm mt-1">
-              Founder & Head Coach
+            <p className="text-slate-600 text-lg leading-relaxed mb-8 relative z-10">
+              "Training is not just about physical strength; it's about building a mindset that refuses to quit.I bring the discipline of the forces to the sports field, ensuring every student reaches their peak potential."
             </p>
-            <p className="text-xs text-gray-600 mt-2 leading-relaxed">
-              Ex-Army Trainer & Senior Athletics Coach with proven leadership in
-              national-level training programs.
-            </p>
-            <p className="text-xs font-medium text-gray-500 mt-3">
-              10+ Years Experience
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ===== STAFF GRID (ONLY ONE — CENTERED & PREMIUM) ===== */}
-      <section className="max-w-4xl mx-auto px-6 pb-24">
-        <motion.div
-          whileHover={{ y: -8, scale: 1.04 }}
-          transition={{ type: "spring", stiffness: 180 }}
-          className="bg-slate-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 md:flex"
-        >
-          {/* Image */}
-          <img
-            src={staff[0].img}
-            alt={staff[0].name}
-            className="h-72 md:h-auto md:w-1/2 object-cover"
-          />
+            <div className="grid grid-cols-2 gap-6 mb-8">
+              <div className="flex items-start gap-3">
+                <Medal className="text-brand-red w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-brand-black uppercase text-sm">Experience</h4>
+                  <p className="text-slate-500 text-sm">21 Degrees | 10+ Yrs Exp</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Star className="text-brand-red w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-brand-black uppercase text-sm">Leadership</h4>
+                  <p className="text-slate-500 text-sm">Exam Mentor</p>
+                </div>
+              </div>
+            </div>
 
-          {/* Content */}
-          <div className="p-8 flex flex-col justify-center text-center md:text-left">
-            <h3 className="text-2xl font-extrabold mb-2">{staff[0].name}</h3>
-            <p className="text-orange-400 font-medium leading-snug">
-              {staff[0].role}
+            <div className="w-full h-1 bg-slate-100 mb-6" />
+            <p className="font-oswald text-slate-400 text-sm uppercase tracking-widest">
+              Holder of 21 Degrees • Competitive Exam Mentor
             </p>
-            <p className="text-sm text-gray-400 mt-3">{staff[0].exp}</p>
           </div>
         </motion.div>
-      </section>
+
+
+        {/* ================= TRAINERS GRID (Assistant Coaches) ================= */}
+        <section>
+          <div className="flex items-center gap-4 mb-10">
+             <div className="h-px bg-slate-200 flex-1" />
+             <h3 className="text-2xl font-oswald font-bold text-slate-400 uppercase tracking-widest">
+               Expert Trainers
+             </h3>
+             <div className="h-px bg-slate-200 flex-1" />
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-8">
+            {staff.map((coach, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden group w-full md:w-[380px]"
+              >
+                <div className="h-64 overflow-hidden relative">
+                   <img 
+                     src={coach.img} 
+                     alt={coach.name} 
+                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                   <div className="absolute bottom-4 left-4 text-white">
+                      <p className="text-xs font-bold bg-brand-red px-2 py-0.5 rounded inline-block mb-1">
+                        {coach.specialty}
+                      </p>
+                   </div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-2xl font-oswald font-bold text-brand-black uppercase mb-1">
+                    {coach.name}
+                  </h3>
+                  <p className="text-brand-red font-semibold text-sm mb-4 uppercase tracking-wide">
+                    {coach.role}
+                  </p>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                       <Medal size={16} className="text-slate-400" />
+                       <span>{coach.qualifications}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                       <Clock size={16} className="text-slate-400" />
+                       <span>{coach.exp}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+      </div>
     </div>
   );
-}
+};
+
+export default Staff;

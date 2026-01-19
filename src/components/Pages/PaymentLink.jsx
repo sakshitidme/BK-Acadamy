@@ -1,77 +1,78 @@
 import { motion } from "framer-motion";
-import { CreditCard, IndianRupee, ShieldCheck } from "lucide-react";
+import { CreditCard, IndianRupee, ShieldCheck, CheckCircle, ArrowRight } from "lucide-react";
 
 export default function PaymentLink() {
   return (
-    <div className="px-6 py-16">
-      {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center max-w-3xl mx-auto mb-12"
-      >
-        <h1 className="text-4xl md:text-5xl font-extrabold text-orange-500 mb-4">
-          Secure Payment
-        </h1>
-        <p className="text-gray-300 text-lg">
-          Pay your registration fees securely for BK Sports Academy programs.
-        </p>
-      </motion.div>
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-montserrat">
+      
+      <div className="pt-24" />{/* Spacing for fixed navbar */}
 
-      {/* Payment Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-4xl mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-10 shadow-xl"
-      >
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          {/* Left */}
-          <div>
-            <h2 className="text-2xl font-semibold text-orange-400 mb-4 flex items-center gap-2">
-              <IndianRupee /> Payment Details
-            </h2>
-            <ul className="text-gray-300 space-y-3">
-              <li>✔ Program Registration Fees</li>
-              <li>✔ Trek & Event Payments</li>
-              <li>✔ Marathon / Camp Fees</li>
-              <li>✔ Secure & Trusted Payment</li>
-            </ul>
-          </div>
+      {/* ================= PAYMENT SECTION ================= */}
+      <section className="max-w-4xl mx-auto px-6 py-12 relative z-20">
+        <motion.div
+           initial={{ opacity: 0, y: 40 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.6 }}
+           className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100"
+        >
+          <div className="grid md:grid-cols-2">
+            
+            {/* Left Col: Details */}
+            <div className="p-10 bg-slate-50/50">
+              <h2 className="text-2xl font-oswald font-bold text-brand-black mb-6 uppercase flex items-center gap-2">
+                <IndianRupee className="text-brand-red" /> Payment Details
+              </h2>
+              <ul className="space-y-4">
+                {[
+                  "Program Registration Fees",
+                  "Trek & Event Payments",
+                  "Marathon / Camp Fees",
+                  "Merchandise & Equipment"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-700 font-medium">
+                    <CheckCircle size={18} className="text-brand-red shrink-0" /> {item}
+                  </li>
+                ))}
+              </ul>
 
-          {/* Right */}
-          <div className="bg-black/30 rounded-xl p-6 text-center">
-            <CreditCard className="w-14 h-14 text-orange-400 mx-auto mb-4" />
-            <p className="text-gray-300 mb-4">
-              Click below to proceed with secure online payment.
-            </p>
-
-            {/* 🔗 Replace with your actual payment link */}
-            <a
-              href="https://rzp.io/l/your-payment-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block w-full py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-black font-semibold transition"
-            >
-              Pay Now
-            </a>
-
-            <div className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-400">
-              <ShieldCheck className="w-4 h-4" /> 100% Secure Payment
+              <div className="mt-8 p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-800 flex items-start gap-3">
+                 <ShieldCheck className="shrink-0 mt-0.5" />
+                 <p>All transactions are 100% secure and encrypted. We do not store your card details.</p>
+              </div>
             </div>
-          </div>
-        </div>
-      </motion.div>
 
-      {/* Note */}
-      <div className="max-w-4xl mx-auto mt-10 text-center text-gray-400 text-sm">
-        <p>
-          After successful payment, please keep the transaction receipt for future reference.
-        </p>
-      </div>
+            {/* Right Col: Action */}
+            <div className="p-10 bg-white flex flex-col justify-center items-center text-center border-l border-slate-100">
+               <div className="w-20 h-20 bg-brand-red/10 rounded-full flex items-center justify-center mb-6">
+                 <CreditCard className="w-10 h-10 text-brand-red" />
+               </div>
+               
+               <h3 className="text-xl font-bold text-slate-900 mb-2">Ready to Pay?</h3>
+               <p className="text-slate-500 mb-8 max-w-xs text-sm">
+                 Click the button below to proceed to our secure payment gateway (Razorpay).
+               </p>
+
+               <a
+                 href="https://rzp.io/l/your-payment-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-red text-white font-bold uppercase tracking-wider rounded-xl overflow-hidden hover:bg-red-700 transition-all shadow-lg hover:shadow-red-500/30"
+               >
+                 <span className="relative z-10 flex items-center gap-2">
+                   Pay Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                 </span>
+               </a>
+
+               <p className="mt-6 text-xs text-slate-400">
+                 * Please save your transaction ID for reference.
+               </p>
+            </div>
+
+          </div>
+        </motion.div>
+      </section>
+
     </div>
   );
-
 }
-

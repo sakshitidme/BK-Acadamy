@@ -16,10 +16,13 @@ import Staff from "./components/Pages/Staff";
 import Gallery from "./components/Pages/Gallery";
 import NoticeBoard from "./components/Pages/NoticeBoard";
 import NotFound from "./components/Pages/NotFound";
+ 
 
 // Auth
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import  AdminDashboard  from "./components/Pages/AdminDashboard";
+
 
 // Components
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -29,10 +32,18 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 3000);
-    return () => clearTimeout(timer);
+    // Check if user has already seen the popup
+    const hasSeenPopup = localStorage.getItem("hasSeenRegistrationPopup");
+    
+    if (!hasSeenPopup) {
+      // Show popup after 3 seconds only if they haven't seen it
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+        // Mark that user has seen the popup
+        localStorage.setItem("hasSeenRegistrationPopup", "true");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
@@ -59,6 +70,7 @@ function App() {
           <Route path="/staff" element={<Staff />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="*" element={<NotFound />} />
+           <Route path="/admin" element={<AdminDashboard />} />
         </Route>
 
       </Routes>
