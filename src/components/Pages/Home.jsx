@@ -23,7 +23,7 @@ function ProgramCard({ program, index }) {
            <img 
               src={program.image} 
               alt={program.title} 
-              className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+              className="w-full h-full object-cover opacity-100 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
            />
            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
         </div>
@@ -31,7 +31,7 @@ function ProgramCard({ program, index }) {
         <div className="absolute inset-0 p-6 flex flex-col justify-between">
            {/* Top Icons */}
            <div className="flex justify-between items-start">
-              <div className={`w-12 h-12 rounded-xl backdrop-blur-md flex items-center justify-center text-white border border-white/20 ${program.color.replace('bg-', 'bg-opacity-20 bg-')}`}>
+              <div className="w-12 h-12 rounded-xl backdrop-blur-md flex items-center justify-center text-white border border-white/20">
                   {React.cloneElement(program.icon, { className: "w-6 h-6" })}
               </div>
               <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10 p-2 rounded-full backdrop-blur-lg">
@@ -75,7 +75,7 @@ function HeroSection() {
     <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-black">
       {/* Background Video (Single High Quality Source) */}
       <video
-        src="/assets/videos/home1.mp4"
+        src="/assets/videos/homebannrvideo.mp4"
         autoPlay
         loop
         muted
@@ -149,7 +149,7 @@ function StatsCounter() {
   const [counts, setCounts] = useState({ students: 0, trainers: 0, stories: 0, experience: 0 });
 
   useEffect(() => {
-    const targets = { students: 50, trainers: 10, stories: 25, experience: 2 };
+    const targets = { students: 50, trainers: 10, stories: 25, experience: 17};
     const duration = 2000;
     const steps = 50;
     const interval = duration / steps;
@@ -320,7 +320,7 @@ export default function HomePage() {
               {
                 name: "Pranav Bhujbal",
                 achievement: "INDIAN ARMY",
-                quote: "BK Academy transformed my fitness level. The training methodology is world-class.",
+                quote: "BK Sports Academy transformed my fitness level. The training methodology is world-class.",
                 image: "/assets/images/testimonials/pranavphto.jpeg",
                 rating: 4.5
               },

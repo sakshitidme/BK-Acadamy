@@ -38,7 +38,7 @@ const FALLBACK_FEATURED = {
   _id: "featured1",
   title: "Annual Marathon 2026",
   description: "Join the biggest sporting event of the year. Push your limits, compete with the best, and earn your glory.",
-  mediaUrl: "/assets/videos/prgmMarathon.mp4"
+  mediaUrl: "/assets/videos/marahton.mp4"
 };
 
 const FAQS = [
@@ -124,9 +124,7 @@ const Programs = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block py-1 pt-2 px-3 rounded-full bg-brand-red/20 border border-brand-red/50 text-brand-red text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md">
-              World Class Training
-            </span>
+             
             <h1 className="text-5xl md:text-7xl font-oswald font-bold text-white uppercase mb-6 tracking-tight">
               Our <span className="text-brand-red">Programs</span>
             </h1>

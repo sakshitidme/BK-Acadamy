@@ -42,7 +42,7 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 opacity-80 hover:opacity-100 transition">
                <span className="text-brand-red">📍</span>
-               <span className="text-xs md:text-sm font-semibold tracking-wide">Nashik, Ashok Stambh</span>
+               <span className="text-xs md:text-sm font-semibold tracking-wide">Ashok Stambh,Nashik,422002</span>
             </div>
             <div className="hidden md:flex items-center gap-2 opacity-80 hover:opacity-100 transition">
                <span className="text-brand-red">📞</span>
@@ -76,7 +76,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
           {/* Logo */}
           <Link to="/home" className="flex items-center gap-1 group">
-            <span className="font-oswald font-bold text-4xl text-brand-red skew-x-[-10deg] transition-transform group-hover:scale-110">
+            <span className="font-oswald font-bold text-4xl text-brand-red pb-4 skew-x-[-10deg] transition-transform group-hover:scale-110">
               BK
             </span>
             <div className="flex flex-col">
@@ -90,12 +90,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex gap-8">
+          <nav className="hidden lg:flex gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`relative font-oswald font-bold uppercase tracking-wider text-sm py-1 transition-all duration-300
+                className={`relative font-oswald font-bold uppercase tracking-wider text-base py-1 transition-all duration-300
                   ${location.pathname === item.path ? "text-brand-red" : "text-brand-black hover:text-brand-red"}
                   after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:bg-brand-red 
                   ${location.pathname === item.path ? "after:w-full" : "after:w-0 hover:after:w-full"}

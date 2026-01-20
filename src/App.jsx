@@ -30,37 +30,14 @@ import PopupForm from "./components/PopupForm";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-  const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    // Check if user has already seen the popup
-    const hasSeenPopup = localStorage.getItem("hasSeenRegistrationPopup");
-    
-    if (!hasSeenPopup) {
-      // Show popup after 3 seconds only if they haven't seen it
-      const timer = setTimeout(() => {
-        setShowPopup(true);
-        // Mark that user has seen the popup
-        localStorage.setItem("hasSeenRegistrationPopup", "true");
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
 
-        {/* Redirect root */}
-        <Route path="/" element={<Navigate to="/home" replace />} />
-
-        {/* Auth (No Layout) */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
         {/* Website with Layout */}
         <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
@@ -77,7 +54,6 @@ function App() {
 
       </Routes>
 
-      {showPopup && <PopupForm onClose={() => setShowPopup(false)} />}
       <WhatsAppButton />
     </BrowserRouter>
   );

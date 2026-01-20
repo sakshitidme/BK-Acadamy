@@ -175,7 +175,7 @@ export default function AdminDashboard() {
 
             <div className="bg-gradient-to-r from-brand-red/10 to-transparent border border-brand-red/20 rounded-2xl p-8">
               <h2 className="text-2xl font-oswald font-bold text-white mb-4 uppercase">
-                Welcome to BK Academy Control Center
+                Welcome to BK Sports Academy Control Center
               </h2>
               <p className="text-slate-300 max-w-3xl leading-relaxed">
                 You have full control over the website content. Use the tabs above to manage dynamic sections.

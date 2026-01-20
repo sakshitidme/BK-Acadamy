@@ -71,7 +71,7 @@ const Staff = () => {
             </div>
 
             <p className="text-slate-600 text-lg leading-relaxed mb-8 relative z-10">
-              "Training is not just about physical strength; it's about building a mindset that refuses to quit.I bring the discipline of the forces to the sports field, ensuring every student reaches their peak potential."
+              "Training is not just about physical strength; it's about building a mindset that refuses to quit . I bring the discipline of the forces to the sports field, ensuring every student reaches their peak potential."
             </p>
 
             <div className="grid grid-cols-2 gap-6 mb-8">
@@ -98,7 +98,7 @@ const Staff = () => {
           </div>
         </motion.div>
 
-        {/* ================= DUPLICATE CARD ================= */}
+        {/* ================= ADMIN OFFICER CARD ================= */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -109,15 +109,15 @@ const Staff = () => {
           <div className="relative h-[400px] md:h-full">
             <img 
               src="/assets/images/staffphotos/staffHead.jpg" 
-              alt="Duplicate Profile" 
+              alt="Kishor Nivrutti Elmame" 
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/5" />
             
             {/* Mobile Name Overlay */}
             <div className="absolute bottom-6 left-6 md:hidden text-white">
-              <h2 className="text-2xl font-oswald font-bold uppercase leading-none mb-1">New Profile</h2>
-              <p className="text-brand-red font-bold text-xs uppercase tracking-wider">Role Title</p>
+              <h2 className="text-2xl font-oswald font-bold uppercase leading-none mb-1">Kishor N. Elmame</h2>
+              <p className="text-brand-red font-bold text-xs uppercase tracking-wider">Administrative Officer</p>
             </div>
           </div>
 
@@ -127,15 +127,15 @@ const Staff = () => {
             
             <div className="hidden md:block mb-6">
               <div className="inline-block px-3 py-1 bg-brand-red/10 text-brand-red font-bold text-[10px] uppercase tracking-widest rounded mb-3">
-                Role Title
+                Administrative Officer
               </div>
               <h2 className="text-2xl lg:text-3xl font-oswald font-bold uppercase text-brand-black mb-2">
-                New Profile Name
+                Kishor Nivrutti Elmame
               </h2>
             </div>
 
             <p className="text-slate-600 text-lg leading-relaxed mb-8 relative z-10">
-              "Description text goes here. Updates to photo and description will be made later."
+              "As the owner of Sanskar English Medium School and a certified Yoga Trainer, I believe in a holistic approach to education and fitness. My goal is to streamline academy operations while fostering discipline and mental well-being in every student."
             </p>
 
             <div className="grid grid-cols-2 gap-6 mb-8">
@@ -143,21 +143,21 @@ const Staff = () => {
                 <Medal className="text-brand-red w-6 h-6 shrink-0 mt-1" />
                 <div>
                   <h4 className="font-bold text-brand-black uppercase text-sm">Experience</h4>
-                  <p className="text-slate-500 text-sm">Qualification | Yrs Exp</p>
+                  <p className="text-slate-500 text-sm">School Owner | Yoga Expert</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Star className="text-brand-red w-6 h-6 shrink-0 mt-1" />
                 <div>
                   <h4 className="font-bold text-brand-black uppercase text-sm">Role</h4>
-                  <p className="text-slate-500 text-sm">Specialty</p>
+                  <p className="text-slate-500 text-sm">Administration & Wellness</p>
                 </div>
               </div>
             </div>
 
             <div className="w-full h-1 bg-slate-100 mb-6" />
             <p className="font-oswald text-slate-400 text-sm uppercase tracking-widest">
-              Additional Info • Credentials
+              Owner, Sanskar English Medium School • Certified Yoga Trainer
             </p>
           </div>
         </motion.div>

@@ -5,7 +5,7 @@ const testimonials = [
   {
     name: "Palak Wagh ",
     role: "NDA Aspirant",
-    image: "https://randomuser.me/api/portraits/women/54.jpg",
+    image:"/assets/images/testimonials/sakshi.jpeg",
     feedback:
       "BK Career Academy completely transformed my physical and mental strength. The trainers are extremely supportive and focused on results.",
     rating: 5,
@@ -13,15 +13,15 @@ const testimonials = [
   {
     name: "Garima Shaikh",
     role: "Army GD Candidate",
-    image: "https://randomuser.me/api/portraits/women/24.jpg",
+    image:"/assets/images/testimonials/Swatimaam .jpeg",
     feedback:
       "The PSI and endurance training helped me clear my physical tests confidently. Best academy for defence preparation.",
     rating: 5,
   },
   {
-    name: "Pranjal Bhujbal",
+    name: "Dnyneshwar Bhujbal",
     role: "Sports Athlete",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    image: "/assets/images/testimonials/dnyneshwarsir.jpeg",
     feedback:
       "Professional coaching, disciplined environment, and personal guidance make BK Career Academy truly outstanding.",
     rating: 4,
